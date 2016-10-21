@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MonthsService>
+  <Month text="Январь" value="1"/>
+  <Month text="Февраль" value="2"/>
+  <Month text="Март" value="3"/>
+  <Month text="Апрель" value="4"/>
+  <Month text="Май" value="5"/>
+  <Month text="Июнь" value="6"/>
+  <Month text="Июль" value="7"/>
+  <Month text="Август" value="8"/>
+  <Month text="Сентабрь" value="9"/>
+  <Month text="Октябрь" value="10"/>
+  <Month text="Ноябрь" value="11"/>
+  <Month text="Декабрь" value="12"/>
+</MonthsService>

@@ -1,0 +1,796 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register Src="~/Controls/PopularResources.ascx" TagPrefix="User" 
+TagName="PopularResources"%>
+<%@ Register Src="~/Controls/DaysAdvise.ascx" TagPrefix="User" 
+TagName="DaysAdvise"%>
+
+<%@ Register src="Controls/ThisSessionObjects.ascx" tagname="ThisSessionObjects" tagprefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+  <title>Главная страница. RABOTA-YUG.RU</title>
+  <meta name="keywords" content="работа в Анапе, вакансии в анапе, работа на юге, анапа сайт, анапа лето, анапа цены, анапа объявления, частный сектор анапа, стоимость анапа, снять в анапе, анапа недорого, минигостиницы анапы">
+  <meta name ="description" content="Поиск работы в Анапе и на юге, заработок летом на юге в Кранодарском крае, вакансии и резюме в Анапе и на юге в Краснодарском крае, кадровые агентства Анапы и юга России, отдых и недвижимость работа и проживание на юге, кадровое агентство Деловой абонемент">
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+  <link href="Styles/Main.css" rel="stylesheet" type="text/css" />
+  <link href="Styles/ssVSSample.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" language="javascript">
+  /*Mozilla 0.9.6, Linux (Debian).Mozilla 0.9.7, NT4.Mozilla 0.9.8, Linux (Red Hat 7.1).Mozilla 0.9.9, Win2000.Mozilla 0.9.9, NT4.Mozilla 0.9.9, Linux (Red Hat 7.2).Mozilla 1.0 RC1, FreeBSD.Netscape 6.1, NT4.Netscape 6.2.1, Win2000.Netscape 6.2.2, Win2000.Netscape 6.2.2, NT4.Netscape 6.2.2, Linux (Debian).Netscape 7 Win2000Netscape 8 Win2000Firefox 1.07 Win2000Firefox 1.5 Win2000Opera 8.51 Win2000Avant Browser 10 Win2000Internet Explorer 6.0 SP1 Win2000Internet Explorer 7.0 Windows Vista*/
+  function ReadFile(fileUrl) {    
+  var req;    var fileContent;    // branch for IE/Windows ActiveX version    
+  
+   try {
+    if (window.ActiveXObject) {        
+    req = new ActiveXObject("Microsoft.XMLHTTP");        
+    req.open("GET", fileUrl, false);        
+    req.onreadystatechange=function() 
+        {                                    
+      if (req.readyState == 4) {                                        
+         fileContent = req.responseText;                                    
+                               }                                
+        }        
+    req.send(null);    // branch for native XMLHttpRequest object    
+                            } 
+   else if (window.XMLHttpRequest) {        
+       req = new XMLHttpRequest();        
+       req.open("GET", fileUrl, false);        
+       req.send(null);        
+       fileContent = req.responseText;    
+                                    }    
+   // convert string to XML object
+   var xmlobject;
+   if(document.implementation && document.implementation.createDocument)
+   {
+     // Firefox
+     var oParser = new DOMParser();
+     xmlobject = oParser.parseFromString(fileContent, "text/xml");
+   }
+   else if(window.ActiveXObject)
+   {
+     //IE
+     xmlobject = new ActiveXObject("Msxml2.DOMDocument"); 
+     xmlobject.async = false; 
+     xmlobject.loadXML(fileContent);
+   }
+   else { }
+
+   // get a reference to the root-element "rss"
+   
+   var root = xmlobject.getElementsByTagName('rss')[0];
+   // get reference to "channel" element
+   
+   if (root) {
+   
+   var channels = root.getElementsByTagName("channel");
+   // now get all "item" tags in the channel
+   var items = channels[0].getElementsByTagName("item");
+   // in the "item" we have a description, so get that
+   var descriptions = items[0].getElementsByTagName("description");
+   // we also get the "pubDate" element in the "item"
+   var date = items[0].getElementsByTagName("pubDate");
+   var title = items[0].getElementsByTagName("title");
+    for(var i = 0; (i < items.length)&&(i<7); i++)
+     {
+       
+       document.writeln ('<TR align="left"><TD align="left"><hr/>');
+       document.writeln (items[i].getElementsByTagName('pubDate')[0].firstChild.data);
+       document.writeln ('</TD></TR>');
+       document.writeln ('<TR align="left"><TD align="justify">');
+       document.writeln (items[i].getElementsByTagName('title')[0].firstChild.data);
+       document.writeln ('</TD></TR>');
+       document.writeln ('<TR align="left"><TD align="justify">');
+       document.writeln (items[i].getElementsByTagName('description')[0].firstChild.data);
+       
+       document.writeln ('</TD></TR>');
+       
+     }
+   }
+   else {
+     document.writeln('<TR align="left"><TD align="left" style="font-size:14px;">');
+     document.writeln('<h4>Нет данных</h4>');
+     document.writeln('</TD></TR>');
+   }
+   }
+   finally {
+     
+        }
+
+   return fileContent; 
+   
+   }
+ 
+   //var key : String = new String("идентификатор ключа");
+   //var loadVars : LoadVars = new LoadVars();
+   //loadVars.onLoad = function(success : Boolean) {
+   // if(success && loadVars.toString() == "true") {
+        // пароль подтвержден
+   // } else {
+        // пароль не подтвержден
+   // }
+   // }
+    //loadVars.load("http://key.smscoin.com/key/?s_key=" + key
+    //  + "&s_pair=" + pair);
+
+  
+</script>
+<script type="text/javascript">
+    var StyleToSelect;
+    function OnChangeGeographySett() {
+        document.getElementById("MasterParagraph").className =
+         StyleToSelect;
+    }
+</script>  
+<script type="text/javascript">
+    function select_menu_tab(tab_node) {
+        document.getElementById('menu_tabs_current').id = '';
+        //document.getElementById('menu_tabs_header').id = '';
+        //tab_node.parentNode.id = 'menu_tabs_header';
+        tab_node.id = 'menu_tabs_current';
+    }
+</script>  
+    <asp:ContentPlaceHolder id="head" runat="server">
+        
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style1
+        {
+            height: 20px;
+        }
+    </style>
+    </head>
+<body>
+    <form id="form1" runat="server">
+    
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <center>
+    <p id="MasterParagraph">
+    <table id="MasterTable" cellpadding="0" cellspacing="0" border="0">
+     <tr><td colspan="2" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F6F3"> <tr>
+       <td align="left" class="style1" valign="top">
+         <asp:SiteMapPath ID="SiteMapPath1" runat="server" Font-Names="Verdana" 
+               Font-Size="0.8em" PathSeparator=" : ">
+               <PathSeparatorStyle Font-Bold="True" ForeColor="#507CD1" />
+               <CurrentNodeStyle ForeColor="#333333" />
+               <NodeStyle Font-Bold="True" ForeColor="#284E98" />
+               <RootNodeStyle Font-Bold="True" ForeColor="#507CD1" />
+           </asp:SiteMapPath>
+       &nbsp;&nbsp;
+           
+           <a href="Default.aspx" title="На главную"> 
+               <asp:Image ID="Image1" runat="server" ImageUrl="Images/Logic/Small/house_go.png" />
+           </a>
+           <a href="ForAll/SendUserMessage.aspx" title="Написать нам письмо"> 
+               <asp:Image ID="Image2" runat="server" ImageUrl="Images/Logic/Small/email_go.png" />
+           </a> 
+           <a href="ForAll/SiteMap.aspx" title="Карта сайта"> 
+               <asp:Image ID="Image3" runat="server" ImageUrl="Images/Logic/Small/chart_organisation.png" />
+           </a>
+       </td>
+       <td align="center">
+         
+           <asp:LinkButton ID="lbChangeGeographySett" runat="server">Изменить &gt;&gt;&gt;</asp:LinkButton>
+           <asp:Repeater ID="Repeater2" runat="server" DataSourceID="sdsCurrentCountry">
+             <ItemTemplate>
+                 <asp:Label ID="Label2" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+             </ItemTemplate>
+           </asp:Repeater>
+           <asp:LinkButton ID="lbCountrySelPopUp" runat="server">v</asp:LinkButton>
+           <asp:Repeater ID="Repeater1" runat="server" DataSourceID="sdsCurrentRegion">
+             <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+             </ItemTemplate>
+           </asp:Repeater>
+           <asp:LinkButton ID="lbRegionSelPopUp" runat="server">v</asp:LinkButton>
+           
+           <ajaxToolkit:HoverMenuExtender ID="RegionsPopUpSelect" runat="server"
+             TargetControlID="lbRegionSelPopUp" PopupControlID="RegionSelPopUpPanel" 
+             PopupPosition="Bottom" OffsetX="6" PopDelay="25">
+           </ajaxToolkit:HoverMenuExtender>
+           
+           
+           <ajaxToolkit:ModalPopupExtender ID="StartPopUp" runat="server" 
+             TargetControlID="lbChangeGeographySett" PopupControlID="StartModalPanel" 
+             BackgroundCssClass="modalBackground"  
+             OkControlID="GeographySetButton" CancelControlID="GeographySetCancelButton"
+             >   
+           </ajaxToolkit:ModalPopupExtender>
+
+           <ajaxToolkit:HoverMenuExtender ID="CountriesPopUpSelect" runat="server"
+             TargetControlID="lbCountrySelPopUp" PopupControlID="CountrySelPopUpPanel" 
+             PopupPosition="Bottom" OffsetX="6" PopDelay="25">
+           </ajaxToolkit:HoverMenuExtender>
+       </td>
+       <td  align="right" valign="top">
+         <span style="font-size:12px;color:#333333"> <u>
+           rabota-yug@mail.ru</u> 
+           Фирма «Рамэна ООО»
+           </span>
+       </td></tr></table>
+     </td></tr> 
+     <tr style="background-image: url('Images/head_back.png'); background-position: right top; background-repeat: no-repeat;">
+       <td align="left"  valign="top" colspan="2">
+           
+       
+       <table border="0" width="100%" valign="top"><tr><td align="left" style="width:160px; height:100px;">
+           <asp:Image ID="Image4" runat="server" AlternateText="ООО Рамена" ImageUrl="Images/logo_small2.jpg" style="width: 214px;" GenerateEmptyAlternateText=true />
+       </td>
+       
+       <td align="right" valign="middle">
+         <span style="font-size:38px;color:#003366">Кадровое агентство <br/></span>
+         <span style="font-size:36px;color:#003366">«Деловой абонемент»</span>  
+       </td>
+       <td  style="width:200px;">
+         <table align="center" border="0"><tr>
+         <td>
+           <table  style="background-image:url('Images/pen.png'); background-position:bottom right; 
+             background-repeat:no-repeat; height:45px; width:180px;">
+               <tr>
+                 <td valign="top">
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:HyperLink ID="HyperLink4" runat="server" ForeColor="#FF5050" 
+                     NavigateUrl="~/AddNewResume.aspx">Добавить резюме</asp:HyperLink></td>
+                 </tr>
+           </table>
+        </td></tr>
+         <tr><td>
+           <table style="height:45px; width:180px;">
+           <tr>
+             <td valign="top">
+                 <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/private.jpg" align="left"/>
+                 <asp:HyperLink ID="HyperLink5" runat="server" ForeColor="#FF5050" 
+                     NavigateUrl="~/PrivateCab.aspx">Личный кабинет</asp:HyperLink>
+             </td>
+           </tr>
+         </table>
+         </td></tr></table>
+       </td>
+       <td style="width:270px;">
+             <asp:loginview id="LoginArea" runat="server">
+              <AnonymousTemplate> 
+              
+              <asp:Login ID="Login1" runat="server" BackColor="#F7F7DE" BorderColor="#CCCC99" 
+                    BorderStyle="Solid" BorderWidth="1px" 
+                    CreateUserIconUrl="~/Images/Logic/Small/user_add.png" 
+                    CreateUserText="Регистрация" 
+                    CreateUserUrl="~/Administration/Registration.aspx" Font-Names="Verdana" 
+                    Font-Size="10pt" 
+                    FailureText="Неудачная попытка входа. Повторите попытку" 
+                    LoginButtonText="Выполнить вход " PasswordLabelText="Пароль" 
+                    PasswordRequiredErrorMessage="Поле &quot;Пароль&quot; является обязательным" 
+                    RememberMeText="Запомнить учетные данные" TitleText="Выполнить вход " 
+                    UserNameLabelText="Имя пользователя" 
+                    
+                    
+                    
+                    UserNameRequiredErrorMessage="Поле &quot;Имя пользователя&quot; является обязательным" 
+                    LoginButtonImageUrl="~/Images/Logic/login.png" onloggedin="Login1_LoggedIn1" 
+                      DisplayRememberMe="False" FailureAction="RedirectToLoginPage" 
+                       Width="260px" 
+                    >
+                        <TextBoxStyle Width="100px" />
+                        <TitleTextStyle BackColor="#6B696B" Font-Bold="True" ForeColor="#FFFFFF" 
+                            Font-Size="10px" />
+                        <HyperLinkStyle Font-Size="10px" />
+                        </asp:Login>
+           </AnonymousTemplate>
+           <LoggedInTemplate>
+           <asp:LoginStatus ID="LoginStatus1" runat="server" CssClass="login_hypertext" LoginText="Вход не выполнен" LogoutText="Здравствуйте, " />        
+                  <asp:LoginName ID="LoginName2" runat="server" CssClass="login_hypertext" />, 
+               Ваш статус: общий
+           <% 
+               
+               //has_role = 0;
+               //if (Context.User.IsInRole("Administrators")) { Response.Write("&nbsp&nbspАдминистратор"); has_role = 1; }
+               //if (Context.User.IsInRole("Friends")) { Response.Write("&nbsp&nbspДруг"); has_role = 1; }
+               //if (Context.User.IsInRole("Clients")) { Response.Write("&nbsp&nbspПользователь"); has_role = 1; }
+               //if (Context.User.IsInRole("Guests")) { Response.Write("&nbsp&nbspГость"); has_role = 1; }
+               //if (has_role == 0) Roles.AddUserToRole(Context.User.Identity.Name, "Guests");
+               //if (Context.User.IsInRole("Guests") && (has_role == 0)) { Response.Write("&nbsp&nbspГость"); has_role = 1; }
+               %>.
+           <h4 style="text-align:center;">
+               <asp:Image ID="LogOUTImage" runat="server" ImageUrl="~/Images/Logic/logout.png" />
+               <br/><asp:LoginStatus ID="LoginStatus2" runat="server" LogoutText="Выйти" LoginText="Войти" LogoutPageUrl="Default.aspx" CssClass="login_hypertext" /> 
+           </h4>
+          </LoggedInTemplate>
+         </asp:loginview>
+       </td>
+       </tr></table>    
+       </td></tr>
+           <tr><td style="text-align: left"><b>За сутки добавлено:</b> 
+               <asp:Repeater ID="Repeater3" runat="server" DataSourceID="sdsCurrCounters">
+                 <ItemTemplate>
+                     вакансий - 
+                     <asp:Label ID="Label3" runat="server" Text='<%# Eval("LastDayVacancyCount") %>'></asp:Label>
+                     (всего на сайте <asp:Label ID="Label5" runat="server" Text='<%# Eval("VacanciesCount") %>'></asp:Label>
+                     ), резюме - 
+                     <asp:Label ID="Label4" runat="server" Text='<%# Eval("LastDayResumeCount") %>'></asp:Label>
+                     (всего <asp:Label ID="Label6" runat="server" Text='<%# Eval("ResumesCount") %>'></asp:Label>
+                     )    
+                 </ItemTemplate>
+               </asp:Repeater>
+               .</td><td></td></tr>
+     <tr>
+     <td colspan="2">    
+      
+         
+    <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+    <asp:ContentPlaceHolder id="MainMenuContentPlaceHolder" runat="server">
+        <div id="menu_tabs_header">
+            <ul>
+                <li onclick="select_menu_tab(this);">
+                    <a href="<%Response.Write(Session["BaseAdress"].ToString());%>/Default.aspx">Главная</a></li>
+                <li onclick="select_menu_tab(this);">
+                    <a href=" <%Response.Write(Session["BaseAdress"].ToString());%>/VakantSearch.aspx">Искать работу</a></li>
+                <li onclick="select_menu_tab(this);">
+                    <a href="<%Response.Write(Session["BaseAdress"].ToString());%>/AddNewPersComlectOrder.aspx">Подбор персонала</a></li>
+                <li onclick="select_menu_tab(this);">
+                    <a href="<%Response.Write(Session["BaseAdress"].ToString());%>/ForAll/Infos.aspx">Советы, карьера</a></li>
+                <li onclick="select_menu_tab(this);">
+                    <a href="<%Response.Write(Session["BaseAdress"].ToString());%>/ForAll/ForumsList.aspx">Общение</a></li>
+                <li onclick="select_menu_tab(this);">
+                    <a href="<%Response.Write(Session["BaseAdress"].ToString());%>/ForAll/Contacts.aspx">О нас</a></li>
+            </ul>
+        </div>
+      </asp:ContentPlaceHolder>
+
+    </td></tr>
+    <tr><td colspan="2">&nbsp;
+    <table align="left" width="100%">
+        <tr valign="top">
+          <td width="235" valign="top">
+          
+            <table width="100%">
+                <tr valign="top">
+                  <td valign="top" align="left">
+                   
+                    <asp:Menu ID="Menu2" runat="server" DynamicHorizontalOffset="2" 
+             Font-Names="Verdana" Font-Size="0.8em" ForeColor="#003366" 
+             StaticDisplayLevels="2" StaticSubMenuIndent="14px" Width="100%" BackColor="#FFD1BB" 
+                          BorderColor="#003366" BorderStyle="Dotted" BorderWidth="1px" >
+             <StaticSelectedStyle Font-Size="11pt" />
+             <StaticMenuItemStyle Font-Size="11pt" HorizontalPadding="5px" 
+                 VerticalPadding="2px" />
+             <DynamicHoverStyle  ForeColor="#FF6600" BackColor="White" Font-Underline="True" />
+             <DynamicMenuStyle  />
+             <DynamicSelectedStyle  />
+             <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+             <StaticHoverStyle Font-Size="11pt" ForeColor="#FF6600" BackColor="White" 
+                            Font-Underline="True" />
+             <Items>
+                 <asp:MenuItem Text="СОИСКАТЕЛЯМ" Value="New Item">
+                     <asp:MenuItem Text="Добавить своё резюме" Value="New Item" 
+                         NavigateUrl="~/AddNewResume.aspx?ReturnUrl=PrivateCab.aspx" 
+                         ImageUrl="~/Images/Logic/Small/page_white_add.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Поиск вакансии" Value="New Item" 
+                         NavigateUrl="~/VakantSearch.aspx" 
+                         ImageUrl="~/Images/Logic/Small/page_white_find.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Горячие вакансии" Value="New Item" 
+                         ImageUrl="~/Images/Logic/Small/star.png"></asp:MenuItem>
+                     <asp:MenuItem NavigateUrl="~/EmployersList.aspx" Text="Все работодатели" 
+                         Value="Все работодатели" ImageUrl="~/Images/Logic/Small/table.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Консультации" 
+                         Value="Индивидуальная консультация" 
+                         ImageUrl="~/Images/Logic/Small/user_comment.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Профориентация" Value="Профориентация" 
+                         ImageUrl="~/Images/Logic/Small/group_link.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Личный брэнд" Value="Личный брэнд" 
+                         ImageUrl="~/Images/Logic/Small/shield.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Карьерный план" Value="Карьерный план" 
+                         ImageUrl="~/Images/Logic/Small/shape_align_bottom.png"></asp:MenuItem>
+                 </asp:MenuItem>
+             </Items>
+         </asp:Menu>
+                     
+                  </td></tr><tr>
+                  <td align="left" valign="top">
+                    <asp:Menu ID="Menu5" runat="server" DynamicHorizontalOffset="2" 
+             Font-Names="Verdana" Font-Size="0.8em" ForeColor="#003366" 
+             StaticDisplayLevels="2" StaticSubMenuIndent="14px" BackColor="#E9E9F8" Width="100%" 
+                          BorderColor="#003366" BorderStyle="Dotted" BorderWidth="1px">
+             <StaticSelectedStyle Font-Size="11pt" />
+             <StaticMenuItemStyle Font-Size="11pt" HorizontalPadding="5px" 
+                 VerticalPadding="2px" />
+             <DynamicHoverStyle BackColor="White" ForeColor="#FF6600" Font-Underline="True" />
+             <DynamicMenuStyle BackColor="#F7F6F3" />
+             <DynamicSelectedStyle BackColor="#5D7B9D" />
+             <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+             <StaticHoverStyle Font-Size="11pt" ForeColor="#FF6600" BackColor="White" 
+                            Font-Underline="True" />
+             <Items>
+                 <asp:MenuItem Text="РАБОТОДАТЕЛЯМ" Value="New Item">
+                     <asp:MenuItem Text="Подбор персонала" Value="Подбор персонала" 
+                         ImageUrl="~/Images/Logic/Small/group_add.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Разместить вакансию" Value="New Item" 
+                         NavigateUrl="~/AddNewPersComlectOrder.aspx?ReturnUrl=PrivateCab.aspx" 
+                         ImageUrl="~/Images/Logic/Small/page_white_add.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Ведение кадрового учета" Value="Ведение кадрового учета" 
+                         ImageUrl="~/Images/Logic/Small/folder_page_white.png">
+                     </asp:MenuItem>
+                     <asp:MenuItem Text="Поиск резюме" Value="New Item" 
+                         NavigateUrl="~/ResumeSearch.aspx" 
+                         ImageUrl="~/Images/Logic/Small/page_white_find.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Горячие резюме" Value="New Item" 
+                         ImageUrl="~/Images/Logic/Small/star.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Обучение персонала" Value="Обучение персонала" 
+                         ImageUrl="~/Images/Logic/Small/group_gear.png">
+                     </asp:MenuItem>
+                     <asp:MenuItem Text="Обратная связь" Value="Индивидуальная консультация" 
+                         ImageUrl="~/Images/Logic/Small/arrow_refresh.png">
+                     </asp:MenuItem>
+                 </asp:MenuItem>
+             </Items>
+         </asp:Menu>  
+                  </td></tr><tr>
+                  <td align="left"  valign="top">
+                    <asp:Menu ID="Menu4" runat="server" DynamicHorizontalOffset="2" 
+             Font-Names="Verdana" Font-Size="0.8em" ForeColor="#7C6F57" 
+             StaticDisplayLevels="2" StaticSubMenuIndent="14px" Width="100%" BackColor="#F7F6F3" 
+                          BorderColor="#003366" BorderStyle="Dotted" BorderWidth="1px">
+             <StaticSelectedStyle Font-Size="11pt" BackColor="#5D7B9D" ForeColor="White" Width="100%" />
+             <StaticMenuItemStyle Font-Size="11pt" HorizontalPadding="5px" 
+                 VerticalPadding="2px" />
+             <DynamicHoverStyle BackColor="#7C6F57" ForeColor="#FF6600" Font-Underline="True" />
+             <DynamicMenuStyle BackColor="#F7F6F3" />
+             <DynamicSelectedStyle BackColor="#5D7B9D" />
+             <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+             <StaticHoverStyle Font-Size="11pt" ForeColor="#FF6600" BackColor="White" 
+                            Font-Underline="True" />
+             <Items>
+                 <asp:MenuItem Text="ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ" Value="New Item">
+                     <asp:MenuItem Text="Разработка инструкций" Value="Разработка инструкций" 
+                         ImageUrl="~/Images/Logic/Small/page_white_wrench.png" 
+                         NavigateUrl="~/ForAll/InstructionDevelop.aspx">
+                     </asp:MenuItem>
+                     <asp:MenuItem Text="Профтестирование" Value="Тестирование" 
+                         ImageUrl="~/Images/Logic/Small/tick.png" 
+                         NavigateUrl="~/ForAll/ProfTest.aspx"></asp:MenuItem>
+                     <asp:MenuItem Text="Ведение бух. учета" 
+                         Value="Бухгалтерское обслуживание" 
+                         ImageUrl="~/Images/Logic/Small/calculator_edit.png" 
+                         NavigateUrl="~/ForAll/BuhService.aspx"></asp:MenuItem>
+                 </asp:MenuItem>
+             </Items>
+         </asp:Menu></td>
+                </tr>
+  </table>
+  
+  <table border="0" align="left" width="100%">
+   <tr>
+     <td align="left">
+       <user:PopularResources id="PopularResources" runat="server" /> 
+     </td>
+   </tr>
+   <tr><td align="center">
+   <table border="0" align="left" width="100%"><tr><td>
+     <table width="120" cellspacing="0" cellpadding="0" border="0"><tr><td align="center" style="font-family:tahoma;font-size:10px;padding:4px;color:#ffffff" bgcolor="#808598">
+         Курсы котировок</td></tr><tr><td><iframe width="100%" height="120" scrolling="no" frameborder="0" src="http://www.business-investor.info/ajax.php?a[m]=quotation&a[0]=informer&a[1]=2-1&a[2]=5-7-6-1-2&a[3]=nominal&a[4]=ffffff-808598-000000-ffffff"> <a href="http://www.business-investor.info" target="_blank">www.business-investor.info</a> </iframe></td></tr></table>
+   </td><td valign="top">
+      <table border="0" align="left" width="100%">
+           <tr>
+             <td align="center">
+               <!--LiveInternet counter--><script type="text/javascript"><!--
+                  document.write("<a href='http://www.liveinternet.ru/click' "+
+                  "target=_blank><img src='http://counter.yadro.ru/hit?t14.14;r"+
+                 escape(document.referrer)+((typeof(screen)=="undefined")?"":
+                 ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+                screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+                ";"+Math.random()+
+                "' alt='' title='LiveInternet: показано число просмотров за 24"+
+                " часа, посетителей за 24 часа и за сегодня' "+
+                "border='0' width='88' height='31'><\/a>")
+                //--></script><!--/LiveInternet-->
+             </td>
+           </tr>
+           <tr>
+             <td align="center">
+                 <!-- begin of Top100 logo -->
+                 <a href="http://top100.rambler.ru/home?id=1913294">
+                 <img src="http://top100-images.rambler.ru/top100/w0.gif" alt="Rambler's Top100"
+                   width="88" height="31" border="0" /></a>
+                <!-- end of Top100 logo -->
+             </td>
+           </tr>
+           <tr>
+             <td align="center">
+                <a href="http://www.anapa.info/" title="Показано число просмотров и                            посетителей за сегодня по данным Анапа.инфо"><img                                     src="http://www.anapa.info/counter.php" style="width: 88px; height: 31px;                    border: medium none;" alt="Рейтинг анапских сайтов на Анапа.инфо"></a>
+             </td>
+           </tr>
+      </table> 
+   </td></tr></table>
+   </td></tr>
+   <tr><td>
+   
+   <table style="font-size:10px;" width="100%">
+             <tr align="left"><td align="left" style="font-size:14px;">
+             <table><tr><td>
+               <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/Logic/news.png" />
+             </td><td><h2>Новости
+                                                                            </h2></td></tr></table>
+             </td></tr>
+             <script type="text/javascript" language="javascript">
+                 //ReadFile("http://www.yuga.ru/federal.rss");
+                 //ReadFile("http://funnygifts.ru/feed/");
+                 //ReadFile("http://www.yuga.ru/news.rss");
+             </script>
+             </table>
+   
+     
+
+   </td></tr>
+   <tr><td>
+       <asp:ListView ID="ListView1" runat="server" DataSourceID="RSSFeedDataSource">
+         <ItemTemplate>
+           <h4>          
+              <a href='<%# XPath("link") %>' target="_blank">  
+                <asp:Label runat="server" ID="TitleLabel" Text='<%# XPath("title") %>' Font-Size="12px"></asp:Label> 
+              </a>        
+              </h4>        
+              <p style="font-size: 11px">          
+              <i>Опубликовано: <%#XPath("pubDate")%></i>         
+              <br/>          
+              <asp:Label runat="server" ID="DescriptionLabel" Text='<%# XPath("description") %>' Font-Size="10px">
+              </asp:Label>        
+              <br/>         
+              [<a href='<%# XPath("link") %>' target="_blank">Подробнее</a>]        
+              </p>        
+              <br />
+         </ItemTemplate>
+         <LayoutTemplate>
+        <div ID="itemPlaceholderContainer" runat="server" 
+            style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+            <span ID="itemPlaceholder" runat="server" />
+        </div>
+        <div style="text-align: center;background-color: #5D7B9D;font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;">
+            <asp:DataPager ID="DataPager1" runat="server" PageSize="5">
+                <Fields>
+                    <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
+                        ShowNextPageButton="False" ShowPreviousPageButton="False" />
+                    <asp:NumericPagerField />
+                    <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" 
+                        ShowNextPageButton="False" ShowPreviousPageButton="False" />
+                </Fields>
+            </asp:DataPager>
+        </div>
+    </LayoutTemplate>
+       </asp:ListView>
+   </td></tr>
+   </table>
+ </td>      
+          <td align="left" valign="top">
+            <div >
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                      
+                <p>
+                </p>
+                      
+            </asp:ContentPlaceHolder>
+            </div>
+            <br /> <br />
+            <div style="color:#BBBBBB; text-align:center; ">
+                353440, г.Анапа, ул.Гоголя, д.55<br/> 
+                т/ф 8(86133)-32213, сот. 8918-164-89-95<br/> 
+                e-mail: rabota-yug@mail.ru
+            </div>
+            <div style="color:#BBBBBB; text-align:center; ">
+                Разработано 
+                <asp:HyperLink ID="HyperLink3" runat="server" ForeColor="Red" 
+                    NavigateUrl="http://ps-develop.ru/" Target="_blank">PS-DEVELOP.RU</asp:HyperLink>
+            </div>
+          </td>
+          <td valign="top" width="200">
+             <table border="0" cellpadding="2" cellspacing="2" width="100%">
+               <tr><td>
+               
+                    <User:DaysAdvise id="DaysAdvise" runat="server" />
+                    
+               </td></tr>
+               <tr><td>
+		         <div class="blue_med_header">
+                 мои Вакансии и Резюме</div>
+		       </td></tr>
+               <tr><td>
+		         <div class="blue_med_header">
+                 в текущей сессии</div>
+                   
+		       </td></tr>
+               <tr><td>
+                 
+                   <uc1:ThisSessionObjects ID="ThisSessionObjects1" runat="server" />
+                 
+               </td></tr>
+               <tr><td>
+		         <div class="blue_med_header" style="display:none;">
+                 в Личном кабинетеn</div> 
+                    <asp:Menu ID="Menu3" runat="server" DynamicHorizontalOffset="2" 
+             Font-Names="Verdana" Font-Size="0.8em" ForeColor="#7C6F57" 
+             StaticDisplayLevels="2" StaticSubMenuIndent="10px" BackColor="#F7F6F3" Width="100%" 
+                        BorderColor="#003366" BorderStyle="Dotted" BorderWidth="1px">
+                        <StaticSelectedStyle Font-Bold="True" ForeColor="#FF3300" />
+             <StaticMenuItemStyle Font-Size="12pt" HorizontalPadding="5px" 
+                 VerticalPadding="2px" />
+             <DynamicHoverStyle BackColor="White" ForeColor="#FF6600" Font-Underline="True" />
+             <DynamicMenuStyle BackColor="#F7F6F3" />
+                        <DynamicSelectedStyle Font-Bold="True" ForeColor="#FF3300" />
+             <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+             <StaticHoverStyle Font-Size="11pt" ForeColor="#FF6600" BackColor="White" 
+                            Font-Underline="True" />
+             <Items>
+                 <asp:MenuItem Text="ПОЛЬЗОВАТЕЛЯМ" Value="New Item">
+                     <asp:MenuItem NavigateUrl="~/PrivateCab.aspx" Text="Личный кабинет" 
+                         Value="Личный кабинет" ImageUrl="~/Images/Logic/Small/key_go.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Правила размещения" Value="New Item" 
+                         ImageUrl="~/Images/Logic/Small/cog.png"></asp:MenuItem>
+                     <asp:MenuItem ImageUrl="~/Images/Logic/Small/page_edit.png" 
+                         NavigateUrl="~/ForAll/Clauses.aspx" Text="Статьи" Value="Статьи"></asp:MenuItem>
+                     <asp:MenuItem Text="Способы продвижения" Value="New Item" 
+                         ImageUrl="~/Images/Logic/Small/chart_line.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Как писать резюме?" 
+                         Value="Проведение тренингов, тестирование" 
+                         ImageUrl="~/Images/Logic/Small/page_white_error.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Протестируй себя..." Value="Протестируй себя..." 
+                         ImageUrl="~/Images/Logic/Small/tick.png">
+                     </asp:MenuItem>
+                     <asp:MenuItem Text="Аналитика" Value="Разработка инструкций" 
+                         ImageUrl="~/Images/Logic/Small/chart_pie.png">
+                     </asp:MenuItem>
+                     <asp:MenuItem Text="Обсуждение" Value="Тестирование" 
+                         ImageUrl="~/Images/Logic/Small/user_comment.png" 
+                         NavigateUrl="~/ForAll/ForumsList.aspx"></asp:MenuItem>
+                     <asp:MenuItem Text="Советы работодателю" Value="Статьи" 
+                         ImageUrl="~/Images/Logic/Small/error.png"></asp:MenuItem>
+                     <asp:MenuItem Text="Скачать" Value="Скачать" 
+                         ImageUrl="~/Images/Logic/Small/page_save.png" 
+                         NavigateUrl="~/ForAll/Download.aspx"></asp:MenuItem>
+                     <asp:MenuItem Text="Прайс-лист" Value="Тарифы" NavigateUrl="~/ForAll/PriceList.aspx" 
+                         ImageUrl="~/Images/Logic/Small/table.png"></asp:MenuItem>
+                     <asp:MenuItem ImageUrl="~/Images/Logic/Small/bell.png" 
+                         NavigateUrl="~/ForAll/Declarations.aspx" Text="Объявления" 
+                         Value="Объявления">
+                     </asp:MenuItem>
+                 </asp:MenuItem>
+             </Items>
+         </asp:Menu>
+               </td></tr>
+	           <tr><td> 
+		         <script>URL = 'http://img.gismeteo.ru/flash/mtown.swf?cset=7&tnumber=10&city0=27612&city1=34731&city2=26063&city3=34929&city4=37099&city5=37006&city6=37001&city7=28440&city8=29634&city9=31735'; w = '160'; h = '185'; value = 'cset=7&tnumber=10&city0=27612&city1=34731&city2=26063&city3=34929&city4=37099&city5=37006&city6=37001&city7=28440&city8=29634&city9=31735'; lang = 'ru';</script><script src='http://informer.gismeteo.ru/flash/fcode.js'></script>           
+		       </td></tr>
+		       <tr><td>
+		         <div class="blue_med_header">реклама</div>
+		       </td></tr>
+	           <tr><td>
+                   <asp:HyperLink ID="HyperLink1" runat="server" ImageUrl="~/Images/megagis.jpg" 
+                       BorderColor="Yellow" BorderStyle="Dotted" BorderWidth="2px" 
+                       NavigateUrl="http://www.megagis.ru/" Target="_blank">МегаГИС</asp:HyperLink>
+		       </td></tr>
+		       <tr><td>
+                   <asp:HyperLink ID="HyperLink6" runat="server" ImageUrl="~/Images/anapa-rest.jpg" 
+                       BorderColor="Yellow" BorderStyle="Dotted" BorderWidth="2px" 
+                       NavigateUrl="http://www.anapa-tut.ru/" Target="_blank">АНАПА-ТУТ</asp:HyperLink>
+		       </td></tr>
+	           <tr><td>
+                   <asp:HyperLink ID="HyperLink2" runat="server" ImageUrl="~/Images/deir.jpg" 
+                       BorderColor="Yellow" BorderStyle="Dotted" BorderWidth="2px" 
+                       NavigateUrl="http://www.deir.org/" Width="200px" Target="_blank">ДЭИР</asp:HyperLink>
+		       </td></tr>
+               <tr><td>
+                   <asp:HyperLink ID="HyperLink7" runat="server" ImageUrl="~/Images/azalia_logo_200.jpg" 
+                       BorderColor="Yellow" BorderStyle="Dotted" BorderWidth="2px" 
+                       NavigateUrl="http://www.artazalia.ru/" Width="200px" Target="_blank">Магазин-студия флористики Азалия. город-курорт Анапа. Букеты, оформление машин, помещений.</asp:HyperLink>
+		       </td></tr>
+                   <tr><td>
+                   <asp:HyperLink ID="AinfoHyperLink" runat="server" ImageUrl="~/Images/ainfo_logo2.png" 
+                       BorderColor="Yellow" BorderStyle="Dotted" BorderWidth="2px" 
+                       NavigateUrl="http://www.anapa.info/ratings/#getCode" Width="200px" Target="_blank">Анапа.инфо Рейтинг Анапских сайтов</asp:HyperLink>
+		       </td></tr>
+               
+		     </table>  
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+    </table>
+    </center>
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?1913294"></script>
+<noscript>
+<img src="http://counter.rambler.ru/top100.cnt?1913294" alt="" width="1" height="1" border="0" />
+
+<!-- end of Top100 code -->
+
+        </noscript>
+        <asp:XmlDataSource ID="RSSFeedDataSource" runat="server" 
+            DataFile="http://news.yandex.ru/business.rss" XPath="/rss/channel/item"></asp:XmlDataSource>
+        <asp:SqlDataSource ID="sdsCurrentRegion" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:PMConnectionString %>" 
+            
+            SelectCommand="SELECT Name, Region_ID, ('~/CurrCountryRegionChange.aspx?Country_id=' + CAST(Country_ID AS VARCHAR(10))+'&amp;Region_id='+CAST(Region_ID AS VARCHAR(10))) AS RegionFullLink FROM PSP_Region WHERE (Region_ID = @Region_ID)">
+            <SelectParameters>
+                <asp:SessionParameter DefaultValue="1" Name="Region_ID" 
+                    SessionField="Region_ID" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="sdsCurrCountryRegions" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:PMConnectionString %>" 
+        
+        
+            SelectCommand="SELECT Name, Country_ID, '~/Default.aspx?Country_ID=' + CAST(Country_ID AS VARCHAR(10)) + '&amp;Region_ID=' + CAST(Region_ID AS VARCHAR(10)) AS DefaultLink, Region_ID FROM PSP_Region WHERE (Country_ID = @Country_ID) OR (Region_ID = 1)">
+            <SelectParameters>
+                <asp:SessionParameter DefaultValue="1" Name="Country_ID" 
+                    SessionField="Country_ID" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="sdsCurrCounters" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:PMConnectionString %>" 
+            SelectCommand="SELECT dbo.GetLastDayResumeCount() AS LastDayResumeCount, dbo.GetLastDayVacancyCount() AS LastDayVacancyCount, dbo.GetResumesCount() AS ResumesCount, dbo.GetVacanciesCount() AS VacanciesCount">
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="sdsCurrentCountry" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:PMConnectionString %>" 
+            SelectCommand="SELECT Name, Country_ID, ('~/CurrCountryRegionChange.aspx?Country_id=' + CAST(Country_ID AS VARCHAR(10))) AS CountryFullLink 
+FROM PSP_Country WHERE (Country_ID = @Country_ID)">
+            <SelectParameters>
+                <asp:SessionParameter DefaultValue="1" Name="Country_ID" 
+                    SessionField="Country_ID" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="sdsAllCountries" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:PMConnectionString %>" 
+            SelectCommand="SELECT [Country_ID], [Name] FROM [PSP_Country]">
+        </asp:SqlDataSource>
+        <asp:Panel ID="RegionSelPopUpPanel" runat="server" ScrollBars="Auto" 
+               Height="400px" Width="250px">
+               <asp:DataList ID="DataList1" runat="server" 
+                 DataSourceID="sdsCurrCountryRegions" HorizontalAlign="Left" BackColor="White">
+                   <ItemTemplate>
+                      <div style="text-align:left;"> 
+                       <asp:LinkButton ID="LinkButton1" runat="server" 
+                           CommandArgument='<%# Eval("Region_ID") %>' onclick="LinkButton1_Click" 
+                              Text='<%# Eval("Name") %>'></asp:LinkButton>
+                      </div> 
+                   </ItemTemplate>
+               </asp:DataList>
+           </asp:Panel>
+        <asp:Panel ID="CountrySelPopUpPanel" runat="server" ScrollBars="Auto" 
+               Height="400px" Width="250px">
+               <asp:DataList ID="DataList2" runat="server" 
+                 DataSourceID="sdsAllCountries" HorizontalAlign="Left" BackColor="White">
+                   <ItemTemplate>
+                      <div style="text-align:left;"> 
+                       <asp:LinkButton ID="LinkButton1" runat="server" 
+                           CommandArgument='<%# Eval("Country_ID") %>'  
+                              Text='<%# Eval("Name") %>' onclick="LinkButton1_Click1"></asp:LinkButton>
+                      </div> 
+                   </ItemTemplate>
+               </asp:DataList>
+           </asp:Panel> 
+           <asp:Panel ID="StartModalPanel" runat="server"
+              Width="250px" BackColor="Lime" Height="126px">
+             <center>  
+                <ajaxToolkit:CascadingDropDown ID="cddCountry" runat="server" 
+                    Category="Country" Enabled="True" LoadingText="[Загрузка списка стран...]" 
+                    PromptText="Пожалуйста выберите страну" ServiceMethod="GetCountries" 
+                    ServicePath="~/Services/Geography.asmx" TargetControlID="ddlStartCountrySelect">
+                </ajaxToolkit:CascadingDropDown>
+                <ajaxToolkit:CascadingDropDown ID="cddRegion" runat="server" Category="Region" 
+                    Enabled="True" LoadingText="[Загрузка списка регионов...]" 
+                    ParentControlID="ddlStartCountrySelect" PromptText="Пожалуйста выберите регион" 
+                    ServiceMethod="GetRegions" ServicePath="~/Services/Geography.asmx" 
+                    TargetControlID="ddlStartRegionSelect">
+                </ajaxToolkit:CascadingDropDown>
+               <br />
+               <asp:DropDownList ID="ddlStartCountrySelect" runat="server" Width="200">
+               </asp:DropDownList><br /><br />
+               <asp:DropDownList ID="ddlStartRegionSelect" runat="server" Width="200">
+               </asp:DropDownList><br /><br />
+               <asp:Button ID="GeographySetButton" runat="server" Text="ОК" Width="70" 
+                     onclick="GeographySetButton_Click" />
+               <asp:Button ID="GeographySetCancelButton" runat="server" Text="Отмена" Width="70" />
+               
+           </asp:Panel>
+        </p>
+      </center>      
+    </form>
+</body>
+</html>

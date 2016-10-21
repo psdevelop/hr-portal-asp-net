@@ -1,0 +1,1 @@
+<%@ Page Inherits="SecurityImageCode.SecurityImage" %>

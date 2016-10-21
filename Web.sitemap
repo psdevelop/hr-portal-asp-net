@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="Default.aspx" title="Главная"  description="">
+      <siteMapNode url="Vakanties.aspx" title="Вакансии"  description="">
+        <siteMapNode url="AddNewPersComlectOrder.aspx" title="Добавление заявки на подбор персонала"  description="" />
+        <siteMapNode url="VakantSearch.aspx" title="Поиск вакансий"  description="" />
+        <siteMapNode url="~/ForAll/VakantInfo.aspx" title="Информация о вакансии"  description="" />
+        <siteMapNode url="~/AddFunction/EditVacancy.aspx" title="Изменение вакансии"  description="" />
+        <siteMapNode url="~/AddFunction/AddVacancyByOldOrg.aspx" title="Добавление вакансии по имеющ. организации"  description="" />
+        <siteMapNode url="~/AddFunction/CompanyInfo.aspx" title="Информация об организации"  description="" />
+        <siteMapNode url="EmployersList.aspx" title="Список организаций работодателей (по отраслям)"  description="" />
+      </siteMapNode>  
+      <siteMapNode url="Resumes.aspx" title="Резюме"  description="">
+        <siteMapNode url="AddNewResume.aspx" title="Добавление резюме"  description="" />
+        <siteMapNode url="ResumeSearch.aspx" title="Поиск резюме"  description="" />
+        <siteMapNode url="~/ForAll/ResumeInfo.aspx" title="Данные резюме"  description="" />
+        <siteMapNode url="~/AddFunction/EditResume.aspx" title="Изменение резюме"  description="" />
+      </siteMapNode>  
+      <siteMapNode url="~/ForAll/Works.aspx" title="Клиенты"  description="">
+        <siteMapNode url="~/AddFunction/SMSSale.aspx" title="Оплата через SMS"  description="" />
+        <siteMapNode url="PrivateCab.aspx" title="Личный кабинет"  description="" />
+        <siteMapNode url="~/ForAll/Declarations.aspx" title="Объявления"  description="" />
+        <siteMapNode url="~/ForAll/Download.aspx" title="Список ресурсов для скачивания"  description="" />
+        <siteMapNode url="~/ForAll/SendUserMessage.aspx" title="Отсылка сообщения авторам сайта..."  description="" />
+        
+      </siteMapNode>
+      <siteMapNode url="~/ForAll/Proposals.aspx" title="Партнерам"  description="">
+        <siteMapNode url="BuhService.aspx" title="Бухгалтерские услуги"  description="" />
+      </siteMapNode>  
+      <siteMapNode url="~/ForAll/Infos.aspx" title="Интересно"  description="" >
+        <siteMapNode url="Resources.aspx" title="Ресурсы портала RABOTA-YUG.RU"  description="" />
+        <siteMapNode url="~/ForAll/PriceList.aspx" title="Прайс-лист"  description="" />
+        <siteMapNode url="~/ForAll/ForumsList.aspx" title="Список форумов"  description="">
+          <siteMapNode url="~/ForAll/ForumContent.aspx" title="Сообщения форума"  description="" />
+          <siteMapNode url="~/ForAll/AddForumeTheme.aspx" title="Создание форума"  description="" />
+        </siteMapNode>
+        <siteMapNode url="~/ForAll/SiteMap.aspx" title="Карта сайта"  description="" />
+        <siteMapNode url="~/ForAll/Clauses.aspx" title="Статьи"  description="">
+          <siteMapNode url="~/ForAll/ClauseContent.aspx" title="Содержание статьи"  description="" />
+        </siteMapNode>
+        <siteMapNode url="~/ForAll/AdviseContent.aspx" title="Подробнее о совете"  description="" />
+        <siteMapNode url="~/ForAll/FAQContent.aspx" title="Обсуждение вопроса"  description="" />
+      </siteMapNode>
+      <siteMapNode url="~/ForAll/Contacts.aspx" title="Контакты"  description="">
+        <siteMapNode url="Administration/PreRegistration.aspx" title="Процедура защиты регистрации"  description="" />
+        <siteMapNode url="Administration/Registration.aspx" title="Добавление нового пользователя"  description="" />
+        <siteMapNode url="Administration/Login.aspx" title="Вход в систему"  description="" />
+        </siteMapNode>
+      
+   </siteMapNode>  
+</siteMap>

@@ -1,0 +1,171 @@
+﻿body
+{
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.TextIndicator_Psw
+{
+    background-color: #808080;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-small;
+    font-style: italic;
+    padding: 2px 3px 2px 3px;
+}
+.MaskedEditFocus
+{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FFFFCC;
+    color: #000000;
+}
+.MaskEditError
+{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #FF0000;
+    color: #FFFFFF;
+}
+.MyCalendar
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #808080;
+    background-color: #FFFFCC;
+}
+
+.cont_head_text
+{
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.cont_date_text
+{
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.all_cont_text
+{
+    font-weight: normal;
+    font-size: larger;
+}
+
+.small_desc_text
+{
+    font-size: x-small;
+    color: #808080;
+}
+.insert_table_caption_td
+{
+    text-align: right;
+    vertical-align: top;
+}
+.rigth_oriented_td
+{
+    text-align:right;
+    vertical-align:top;
+}
+.left_oriented_td
+{
+    text-align:left;
+    vertical-align:top;
+}
+.left_td_sized
+{
+    width:200;
+    vertical-align:top;
+}
+.wizard_side_bar_button
+{
+    
+}
+.login_hypertext
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #336699;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu_label_margin 
+{
+    padding-left:10px;
+    padding-right:10px;
+    margin-left:10px;
+    margin-right:10px;
+}
+#menu_tabs_header {
+      float:left;
+      width:100%;
+      background:#DAE0D2 url("../Images/bg.gif") repeat-x bottom;
+      font-size:93%;
+      line-height:normal;
+      }
+    #menu_tabs_header ul {
+      margin:0;
+      padding:10px 10px 0;
+      list-style:none;
+      }
+    #menu_tabs_header li {
+      float:left;
+      background:url("../Images/left.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 9px;
+      }
+    #menu_tabs_header a {
+      display:block;
+      background:url("../Images/right.gif") no-repeat right top;
+      padding:5px 15px 4px 6px;
+      text-decoration:none;
+      font-weight:bold;
+      color:#765;
+      }
+    #menu_tabs_header a:hover {
+      color:#333;
+      }
+    #menu_tabs_header #menu_tabs_current {
+      background-image:url("../Images/left_on.gif");
+      }
+    #menu_tabs_header #menu_tabs_current a {
+      background-image:url("../Images/right_on.gif");
+      color:#333;
+      padding-bottom:5px;
+      }
+      
+      .contrast_link 
+      {
+          text-align:center;
+          font-weight:bold;
+          padding-left: 10px;
+          padding-right : 10px;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          margin:5px 5px;
+          background-color:#75bcf2;
+          text-decoration:none;
+          color:#FFFFFF;
+      }
+      
+      .contrast_link:hover 
+      {
+          background-color:#a0d1f6;
+      }
+.base_vacancy_search_result 
+{
+    font-size:12px;
+}
+.base_resume_search_result 
+{
+    font-size:12px;
+}
+.blue_med_header 
+{
+    background-color:#284775;
+    color:#FFFFFF;
+    font-size:14px;
+    font-weight:bold;
+    padding:5px;
+}
